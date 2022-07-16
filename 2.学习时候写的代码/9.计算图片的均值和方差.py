@@ -18,4 +18,4 @@ for i, (imgs, lables) in enumerate(data_bar):
     data_bar.set_description(f"[{i}/{num_imgs}]")
 mean = np.array(means) / num_imgs
 std = np.array(stds) / num_imgs  # 要使数据集归一化，均值和方差需除以总图片数量
-print(mean, std)  # 打印出结果
+print(mean, ',', std)  # 打印出结果

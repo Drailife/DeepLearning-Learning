@@ -133,7 +133,8 @@ class MyGoogLeNet(nn.Module):
         if self.training and self.aux_logits:  # eval model lose this layer
             aux1 = self.aux1(x)
 
-        x = self.inception4b(x)
+        self.b = self.inception4b(x)
+        x = self.b
         # N x 512 x 14 x 14
         x = self.inception4c(x)
         # N x 512 x 14 x 14

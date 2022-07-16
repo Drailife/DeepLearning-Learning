@@ -41,7 +41,7 @@ class MyModle(nn.Module):
         return x
 
 
-dataset = MyDataset('.\MyDatas\diabetes.csv.gz')
+dataset = MyDataset('..\\MyDatas\\diabetes.csv.gz')
 dataloader = torch.utils.data.DataLoader(dataset=dataset, batch_size=16, shuffle=True)
 my_modle = MyModle()  # 创建一个模型的实例化对象
 criterion = nn.BCELoss()  # 二分类问题，选用Bceloss 二分类交叉熵损失函数计算损失值
