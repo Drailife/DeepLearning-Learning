@@ -8,6 +8,9 @@ import torch.nn.functional as F
 
 
 # 封装卷积和激活函数
+import torchvision.models
+
+
 class BasicConv2d(nn.Module):
     def __init__(self, in_channel, out_channel,
                  kernel_size=1, padding=1, stride=1, **kwargs):
@@ -54,10 +57,8 @@ class Vgg16(nn.Module):
             nn.Linear(7 * 7 * 512, 2048),
             nn.ReLU(inplace=True),
             nn.Dropout(0.5),
-            nn.Linear(2048, 512),
-            nn.ReLU(inplace=True),
-            nn.Dropout(0.5),
-            nn.Linear(512, num_classes))
+            nn.Linear(2048, num_classes)
+        )
 
     def forward(self, x):
         x = self.layer1(x)
@@ -73,3 +74,4 @@ class Vgg16(nn.Module):
 if __name__ == '__main__':
     VGGModel = Vgg16(num_classes=6)
     print(VGGModel)
+torchvision.models.ResNet

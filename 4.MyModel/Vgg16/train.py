@@ -10,17 +10,21 @@ from VGG16 import Vgg16
 Device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print('你正在使用的为： ', Device)
 
-traindata_path = '..//..//3.MyDataSet//Archive//seg_train'
-valdata_path = '..//..//3.MyDataSet//Archive//seg_test'
+# AutoDl服务器端
+# traindata_path = '..//Drailife_MyDataset/Archive/seg_train/seg_train'
+# valdata_path = '..//Drailife_MyDataset/Archive/seg_test/seg_test'
+# 本地端
+traindata_path = '../../3.MyDataSet/DataSet/Archive/seg_train/seg_train'
+valdata_path = '../../3.MyDataSet/DataSet/Archive/seg_test/seg_test'
 my_transform = transforms.Compose([transforms.Resize((224, 224)),
                                    transforms.ToTensor(),
                                    transforms.Normalize([0.43017164, 0.4574746, 0.4538466],
                                                         [0.23553437, 0.23454581, 0.24294421])])
 train_dataset = ImageFolder(root=traindata_path, transform=my_transform)
-train_dataloader = DataLoader(dataset=train_dataset, batch_size=32, shuffle=True)
-
+train_dataloader = DataLoader(dataset=train_dataset, batch_size=32, shuffle=True,num_workers=7)
+print(train_dataloader)
 val_dataset = ImageFolder(root=valdata_path, transform=my_transform)
-val_dataloader = DataLoader(dataset=val_dataset, batch_size=32, shuffle=True)
+val_dataloader = DataLoader(dataset=val_dataset, batch_size=32, shuffle=True,num_workers=7)
 
 myvgg16 = Vgg16(num_classes=6)
 myvgg16.to(Device)
@@ -62,6 +66,7 @@ for epoch in range(epochs):
             labels = labels.to(Device)
             outputs = myvgg16(images)
             predicted = torch.max(outputs, dim=1)[1]
+            print(predicted)
             correct += (predicted == labels).sum().item()  # 计算正确率
         val_acc.append(100 * correct / total)
         # print('[epoch %d] Accuracy on test set: %d %%' % (epoch, 100 * correct / total))
