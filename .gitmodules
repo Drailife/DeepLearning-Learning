@@ -1,0 +1,3 @@
+[submodule "0.DeepLearning-500-questions"]
+	path = 0.DeepLearning-500-questions
+	url = git@github.com:scutan90/DeepLearning-500-questions.git
